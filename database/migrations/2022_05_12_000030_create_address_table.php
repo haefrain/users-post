@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('address', function (Blueprint $table) {
             $table->id();
-            $table->string('street');
-            $table->string('suite');
-            $table->string('city');
-            $table->string('zipcode');
-            $table->string('lat');
-            $table->string('lng');
+            $table->string('street', 100);
+            $table->string('suite', 100);
+            $table->string('city', 100);
+            $table->string('zipcode', 20);
+            $table->string('lat', 20)->comment('used by map');
+            $table->string('lng', 20)->comment('used by map');
 
         });
     }

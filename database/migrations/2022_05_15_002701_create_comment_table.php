@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('comment', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('companyId');
-            $table->foreignId('addressId');
-            $table->string('name');
-            $table->string('username');
-            $table->string('email')->unique();
-            $table->string('phone');
-            $table->string('website');
+            $table->foreignId('userId')->constrained('users');
+            $table->foreignId('postId')->constrained('post');
+            $table->longText('comment');
         });
     }
 
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('comment');
     }
 };
