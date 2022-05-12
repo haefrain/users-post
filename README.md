@@ -1,64 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Bienvenido a UsersPost!
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Esta aplicacion carga Usuarios y Post desde un API, tiene una interfaz grafica para ver la lista de usuarios post y sus comentarios y tiene un job programado que crea comentarios cada hora.
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Instalación
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Prerequisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+ - Tener conexion a internet
+ - Tener un entorno que ejecute PHP v8
+ - Tener composer disponible
+ - Contar con MySQL como motor de base de datos
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Clonar repositorio
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Con el siguiente comando podremos clonar el repositorio
+```
+git clone https://github.com/haefrain/users-post.git
+```
+Una vez clonado el proyecto en la raiz del mismo debemos copiar el archivo .example.env colocandole el siguiente nombre ".env" y alli configurar las variables de entorno para conectar con la base de datos
 
-## Laravel Sponsors
+```
+DB_CONNECTION=mysql  
+DB_HOST=127.0.0.1  
+DB_PORT=3306  
+DB_DATABASE=test
+DB_USERNAME=test
+DB_PASSWORD=test
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Ahora debemos instalar las dependencias, para ello nos ubicaremos en la carpeta del proyecto desde la consola y correremos el siguiente comando
+```
+composer install
+```
+Una vez instaladas todas las dependencias debemos ejecutar las migraciones para ello nos apoyaremos del siguiente comando
+```
+php artisan migrate
+```
+Una vez las migraciones se hayan ejecutado podremos correr el siguiente comando para obtener todos los usuarios
+```
+php artisan get:users
+```
+y el siguiente para obtener todos los posts
+```
+php artisan get:post
+```
+Para iniciar la escucha de las tareas programadas, en este caso para crear un comentario utilizaremos el comando
+```
+php artisan schedule:work
+```
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Finalmente para ver la tabla de Usuarios y Post podremos correr el siguiente comando
+````
+php artisan serve
+````
+Con este nos iniciara un servidor el cual nos arrojara una direccion ip por la cual podremos acceder y ver las tablas de datos.
+En caso de que tengas un error con la generacion de la llave (esto al ingresar por el navegador) lo unico que debes hacer es correr el siguiente comando
+````
+php artisan key:generate
+````
+Esto creara una nueva key en el archivo .env y con solo refrescar la pagina deberia ya funcionarte.
